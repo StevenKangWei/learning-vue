@@ -5,5 +5,6 @@ export const URL_HOME = '/home';
 export const URL_GRAPH = '/graph';
 
 export const API_LOGIN = 'login';
+export const API_MENUS = 'menus';
 
 export const TOKEN = 'token';
