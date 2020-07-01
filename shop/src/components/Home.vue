@@ -19,7 +19,8 @@
                         v-for="item in menulist"
                         :key="item.id"
                         :collapse="iscollapse"
-                        :collapse-transition='false'
+                        :collapse-transition="false"
+                        :router="true"
                     >
                         <el-submenu :index="item.id + ''">
                             <template slot="title">
@@ -27,7 +28,7 @@
                                 <span>{{ item.authName }}</span>
                             </template>
                             <el-menu-item
-                                :index="subitem.id + ''"
+                                :index="'/' + subitem.path"
                                 v-for="subitem in item.children"
                                 :key="subitem.id"
                             >
@@ -40,7 +41,9 @@
                     </el-menu>
                 </el-aside>
                 <el-container>
-                    <el-main>Main</el-main>
+                    <el-main>
+                        <router-view></router-view>
+                    </el-main>
                     <el-footer>Footer</el-footer>
                 </el-container>
             </el-container>
@@ -61,7 +64,7 @@ export default {
                 102: 'el-icon-s-order',
                 145: 'el-icon-s-data'
             },
-            iscollapse: false,
+            iscollapse: false
         }
     },
     created() {
@@ -72,8 +75,8 @@ export default {
             window.sessionStorage.clear()
             this.$router.push(constants.URL_LOGIN)
         },
-        togglemenu(){
-            this.iscollapse = !this.iscollapse;
+        togglemenu() {
+            this.iscollapse = !this.iscollapse
         },
         async getMenuList() {
             const { data: res } = await this.$http.get(constants.API_MENUS)

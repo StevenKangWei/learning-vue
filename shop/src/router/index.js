@@ -3,18 +3,27 @@ import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Graph from '../components/Graph.vue'
+import Welcome from '../components/Welcome.vue'
 
 import * as constants from '../components/constants'
 
 Vue.use(VueRouter)
 
 const routes = [{
+        path: constants.URL_INDEX,
+        redirect: constants.URL_LOGIN,
+    }, {
         path: constants.URL_LOGIN,
         component: Login
     },
     {
         path: constants.URL_HOME,
-        component: Home
+        component: Home,
+        redirect: constants.URL_WELCOME,
+        children: [{
+            path: constants.URL_WELCOME,
+            component: Welcome,
+        }]
     },
     {
         path: constants.URL_GRAPH,
