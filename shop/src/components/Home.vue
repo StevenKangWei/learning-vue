@@ -21,6 +21,7 @@
                         :collapse="iscollapse"
                         :collapse-transition="false"
                         :router="true"
+                        :default-active='activePath'
                     >
                         <el-submenu :index="item.id + ''">
                             <template slot="title">
@@ -31,6 +32,7 @@
                                 :index="'/' + subitem.path"
                                 v-for="subitem in item.children"
                                 :key="subitem.id"
+                                @click="saveNavState('/' + subitem.path)"
                             >
                                 <template slot="title">
                                     <i class="el-icon-menu"></i>
@@ -64,11 +66,13 @@ export default {
                 102: 'el-icon-s-order',
                 145: 'el-icon-s-data'
             },
-            iscollapse: false
+            iscollapse: false,
+            activePath: '',
         }
     },
     created() {
         this.getMenuList()
+        this.activePath = window.sessionStorage.getItem("activeItem") || ""
     },
     methods: {
         logout() {
@@ -77,6 +81,10 @@ export default {
         },
         togglemenu() {
             this.iscollapse = !this.iscollapse
+        },
+        saveNavState(activePath){
+            window.sessionStorage.setItem('activePath', activePath);
+            this.activePath = activePath;
         },
         async getMenuList() {
             const { data: res } = await this.$http.get(constants.API_MENUS)

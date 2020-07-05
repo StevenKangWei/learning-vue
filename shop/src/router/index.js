@@ -4,6 +4,7 @@ import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Graph from '../components/Graph.vue'
 import Welcome from '../components/Welcome.vue'
+import Users from '../components/user/Users.vue'
 
 import * as constants from '../components/constants'
 
@@ -21,9 +22,14 @@ const routes = [{
         component: Home,
         redirect: constants.URL_WELCOME,
         children: [{
-            path: constants.URL_WELCOME,
-            component: Welcome,
-        }]
+                path: constants.URL_USERS,
+                component: Users,
+            },
+            {
+                path: constants.URL_WELCOME,
+                component: Welcome,
+            }
+        ]
     },
     {
         path: constants.URL_GRAPH,
