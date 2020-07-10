@@ -14,7 +14,6 @@ axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
 
 axios.interceptors.request.use(config => {
     config.headers.Authorization = window.sessionStorage.getItem(constants.TOKEN);
-    console.log(config)
     return config
 })
 
